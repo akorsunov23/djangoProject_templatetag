@@ -1,10 +1,14 @@
 <ul>
-    {% for item in items %}
-        <li>
-            <a href="?{{ menu }}={{ item.slug }}">{{ item.title }}</a>
-        </li>
-        {% if item.child_items %}
-            {% include 'app_templatetags/menu.html' with items=item.child_items %}
-        {% endif %}
-    {% endfor %}
+    {% if items %}
+        {% for item in items %}
+            <li>
+                <a href="?{{ menu }}={{ item.slug }}">{{ item.title }}</a>
+            </li>
+            {% if item.child_items %}
+                {% include 'app_templatetags/menu.html' with items=item.child_items %}
+            {% endif %}
+        {% endfor %}
+    {% else %}
+        <meta http-equiv="Refresh" content="0; {% url 'menu:details' slug=slug %}">
+    {% endif %}
 </ul>
